@@ -1,4 +1,4 @@
-# Mulat Cafe Voucher PDF Generator
+# Voucher PDF Generator
 
 This is a PDF-only voucher printer for WiFi voucher exports.
 
@@ -7,7 +7,6 @@ It reads all `.xlsx` files inside `input/`, extracts voucher codes, and creates 
 ## Folder structure
 
 ```txt
-mulat_voucher_pdf_tools/
   assets/
     logo.png
   input/
@@ -20,7 +19,6 @@ mulat_voucher_pdf_tools/
 ## Setup
 
 ```bash
-cd mulat_voucher_pdf_tools
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

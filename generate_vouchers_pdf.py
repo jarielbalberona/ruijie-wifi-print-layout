@@ -265,7 +265,7 @@ def draw_logo(
 
     if not logo_path or not logo_path.exists():
         pdf.setFont("Helvetica-Bold", 11)
-        pdf.drawCentredString(x + width / 2, fallback_baseline(), "Mulat Cafe")
+        pdf.drawCentredString(x + width / 2, fallback_baseline(), "Dumadine")
         return
 
     try:
@@ -295,7 +295,7 @@ def draw_logo(
     except Exception as exc:
         print(f"Warning: could not draw logo {logo_path}: {exc}")
         pdf.setFont("Helvetica-Bold", 11)
-        pdf.drawCentredString(x + width / 2, fallback_baseline(), "Mulat Cafe")
+        pdf.drawCentredString(x + width / 2, fallback_baseline(), "Dumadine")
 
 
 def draw_voucher(
@@ -404,8 +404,8 @@ def generate_pdf(
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     pdf = canvas.Canvas(str(output_path), pagesize=page_size)
-    pdf.setTitle("Mulat Cafe WiFi Vouchers")
-    pdf.setAuthor("Mulat Cafe")
+    pdf.setTitle("Dumadine WiFi Vouchers")
+    pdf.setAuthor("Dumadine")
 
     for index, voucher in enumerate(vouchers):
         slot = index % vouchers_per_page
