@@ -2,7 +2,7 @@
 
 This is a PDF-only voucher printer for WiFi voucher exports.
 
-It reads all `.xlsx` files inside `input/`, extracts voucher codes, and creates a legal-size PDF with a fixed 4-column layout. Each voucher is drawn directly on the PDF canvas, so vouchers do not get cut between pages.
+It reads all `.xlsx` files inside `input/`, extracts voucher codes, and creates a US Letter PDF with a fixed 5-column layout. Each voucher is drawn directly on the PDF canvas, so vouchers do not get cut between pages.
 
 ## Folder structure
 
@@ -38,21 +38,21 @@ output/wifi-vouchers.pdf
 
 Default layout:
 
-- Legal paper
+- US Letter paper
 - Landscape
-- 4 columns
-- 8 rows
-- 32 vouchers per page
+- 5 columns
+- 10 rows
+- 50 vouchers per page
 - Logo + voucher code only
 
-For the uploaded sample with 4,000 vouchers, this creates 125 pages.
+For the uploaded sample with 4,000 vouchers, this creates 80 pages.
 
-## Larger vouchers
+## Other layouts
 
-Use 7 rows instead of 8 if you want more space per voucher:
+Override columns and rows as needed, for example a 4×8 grid:
 
 ```bash
-python generate_vouchers_pdf.py --input-dir input --output-dir output --rows 7
+python generate_vouchers_pdf.py --input-dir input --output-dir output --columns 4 --rows 8
 ```
 
 ## Include period and device details
@@ -71,7 +71,7 @@ python generate_vouchers_pdf.py --input-dir input --output-dir output --unused-o
 
 Use these settings when printing the generated PDF:
 
-- Paper size: Legal, 8.5 x 14 in
+- Paper size: Letter, 8.5 x 11 in
 - Orientation: Landscape
 - Scale: 100% / Actual size
 - Margins: printer default or none

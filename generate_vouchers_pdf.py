@@ -3,8 +3,8 @@
 Generate printable WiFi voucher PDFs from one or more .xlsx exports.
 
 Default output:
-- Legal size landscape PDF
-- 4 columns x 8 rows per page
+- US Letter size landscape PDF
+- 5 columns x 10 rows per page
 - Each voucher: logo | code (two columns), period/devices line, footer
 - No voucher is split between pages
 
@@ -13,7 +13,7 @@ Usage:
 
 Examples:
   python generate_vouchers_pdf.py --input-dir input --output-dir output
-  python generate_vouchers_pdf.py --input-dir input --output-dir output --rows 7
+  python generate_vouchers_pdf.py --input-dir input --output-dir output --columns 4 --rows 8
   python generate_vouchers_pdf.py --input-dir input --output-dir output --unused-only
 """
 
@@ -28,7 +28,7 @@ from typing import Optional
 
 from openpyxl import load_workbook
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import legal, landscape, portrait
+from reportlab.lib.pagesizes import landscape, letter, portrait
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -389,7 +389,7 @@ def generate_pdf(
     rows: int,
     orientation: str,
 ) -> None:
-    page_size = landscape(legal) if orientation == "landscape" else portrait(legal)
+    page_size = landscape(letter) if orientation == "landscape" else portrait(letter)
     page_width, page_height = page_size
 
     margin_x = 0.22 * inch
@@ -433,14 +433,14 @@ def generate_pdf(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate legal-size printable WiFi voucher PDFs from .xlsx files.")
+    parser = argparse.ArgumentParser(description="Generate US Letter printable WiFi voucher PDFs from .xlsx files.")
     parser.add_argument("--input-dir", default="input", help="Folder containing one or more .xlsx files.")
     parser.add_argument("--output-dir", default="output", help="Folder for generated PDFs.")
     parser.add_argument("--logo", default="assets/logo.png", help="Logo image path. PNG/JPG recommended.")
     parser.add_argument("--pdf-name", default="wifi-vouchers.pdf", help="Generated PDF filename.")
-    parser.add_argument("--columns", type=int, default=4, help="Voucher columns per page.")
-    parser.add_argument("--rows", type=int, default=8, help="Voucher rows per page. Use 7 for larger vouchers.")
-    parser.add_argument("--orientation", choices=["landscape", "portrait"], default="landscape", help="Legal paper orientation.")
+    parser.add_argument("--columns", type=int, default=5, help="Voucher columns per page.")
+    parser.add_argument("--rows", type=int, default=10, help="Voucher rows per page.")
+    parser.add_argument("--orientation", choices=["landscape", "portrait"], default="landscape", help="US Letter orientation.")
     parser.add_argument("--unused-only", action="store_true", help="Only include rows where status is Not used/Unused/Available/New.")
     return parser.parse_args()
 
@@ -487,7 +487,7 @@ def main() -> None:
     pages = math.ceil(len(vouchers) / vouchers_per_page)
 
     print(f"Vouchers: {len(vouchers)}")
-    print(f"Layout: legal {args.orientation}, {args.columns} columns x {args.rows} rows = {vouchers_per_page} vouchers/page")
+    print(f"Layout: letter {args.orientation}, {args.columns} columns x {args.rows} rows = {vouchers_per_page} vouchers/page")
     print(f"Pages: {pages}")
     print(f"PDF: {pdf_path}")
 
